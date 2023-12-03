@@ -18,7 +18,7 @@ if fl is not None:
     df = pd.read_excel(io.BytesIO(content))
     # df = pd.read_csv(filename,encoding="ISO-8859-1")
 else:
-   os.chdir(r"https://github.com/anmolbenipal/SuperStore/tree/main/Streamlit")
+   os.chdir(r"Streamlit")
    df = pd.read_excel("Superstore.xls")
 
     
