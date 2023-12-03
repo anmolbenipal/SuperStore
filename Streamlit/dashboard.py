@@ -19,8 +19,11 @@ if fl is not None:
     df = pd.read_excel(io.BytesIO(content))
     # df = pd.read_csv(filename,encoding="ISO-8859-1")
 else:
-   os.chdir(r"Streamlit")
-   df = pd.read_excel("Superstore.xls")
+   uploaded_file = st.file_uploader("Upload Superstore File", type=["xls", "xlsx"])
+   if uploaded_file is not None:
+       df = pd.read_excel(uploaded_file)
+   else:
+       st.warning('Please upload a file.')
 
 col1 , col2 = st.columns((2))
 df["Order Date"]=pd.to_datetime(df["Order Date"])
