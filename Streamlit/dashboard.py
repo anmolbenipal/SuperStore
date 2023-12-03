@@ -11,19 +11,13 @@ st.set_page_config(page_title="Superstore!!!",page_icon=":bar_chart:",layout="wi
 st.title(" :bar_chart: Sample SuperStore EDA")
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
 
-fl = st.file_uploader(":file_folder: Upload a file",type=(["csv","txt","xlsx","xls"]))
-if fl is not None:
-    filename = fl.name
-    st.write(filename)
-    content = fl.read()
-    df = pd.read_excel(io.BytesIO(content))
-    # df = pd.read_csv(filename,encoding="ISO-8859-1")
+df = pd.DataFrame()
+
+uploaded_file = st.file_uploader("Upload Superstore File", type=["xls", "xlsx"])
+if uploaded_file is not None:
+    df = pd.read_excel(uploaded_file)
 else:
-   uploaded_file = st.file_uploader("Upload Superstore File", type=["xls", "xlsx"])
-   if uploaded_file is not None:
-       df = pd.read_excel(uploaded_file)
-   else:
-       st.warning('Please upload a file.')
+    st.warning('Please upload a file.')
 
 col1 , col2 = st.columns((2))
 df["Order Date"]=pd.to_datetime(df["Order Date"])
