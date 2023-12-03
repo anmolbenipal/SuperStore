@@ -11,21 +11,17 @@ st.set_page_config(page_title="Superstore!!!",page_icon=":bar_chart:",layout="wi
 st.title(" :bar_chart: Sample SuperStore EDA")
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
 
-uploaded_file = st.file_uploader(":file_folder: Upload a file", type=(["csv", "txt", "xlsx", "xls"]))
-if uploaded_file is not None:
-    filename = uploaded_file.name
+fl = st.file_uploader(":file_folder: Upload a file",type=(["csv","txt","xlsx","xls"]))
+if fl is not None:
+    filename = fl.name
     st.write(filename)
-    content = uploaded_file.read()
+    content = fl.read()
     df = pd.read_excel(io.BytesIO(content))
-
-    # Check if 'Order Date' column exists in the DataFrame before using it
-    if "Order Date" in df.columns:
-        df["Order Date"] = pd.to_datetime(df["Order Date"])
-        # Continue with your analysis and visualization using 'df' here
-    else:
-        st.error("The 'Order Date' column is missing in the uploaded file.")
+    # df = pd.read_csv(filename,encoding="ISO-8859-1")
 else:
-    st.warning('Please upload a file to proceed.')
+   os.chdir(r"C:\Users\hp\OneDrive\Documents\Streamlit")
+   df = pd.read_excel("Superstore.xls")
+
     
 col1 , col2 = st.columns((2))
 df["Order Date"]=pd.to_datetime(df["Order Date"])
